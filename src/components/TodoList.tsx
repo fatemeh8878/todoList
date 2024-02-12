@@ -15,7 +15,6 @@ const TodoList = () => {
         if (filter === "Undone") return !todo.done;
         return true
     }), [filter, todos]);
-    console.log(filter)
     return (
         <Box>
             {filterTodos.length ?
