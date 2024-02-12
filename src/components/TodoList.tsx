@@ -3,24 +3,27 @@ import React, {useMemo} from 'react';
 import {Box, Checkbox, IconButton, List, ListItem, Typography} from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
 import {useTodoStore} from "@/hooks/useTodos";
+
 const TodoList = () => {
     const todos = useTodoStore(state => state.todos);
     const removeTodo = useTodoStore(state => state.removeTodo);
     const toggleDone = useTodoStore(state => state.toggleDone);
     const filter = useTodoStore(state => state.filter);
 
-    const filterTodos=useMemo(()=>todos.filter(todo=>{
-        if(filter==="Done") return todo.done;
-        if(filter==="Undone") return !todo.done;
+    const filterTodos = useMemo(() => todos.filter(todo => {
+        if (filter === "Done") return todo.done;
+        if (filter === "Undone") return !todo.done;
         return true
-    }),[filter,todos])
+    }), [filter, todos]);
+    console.log(filter)
     return (
         <Box>
             {filterTodos.length ?
                 <List sx={{display: "flex", flexDirection: "column", gap: "1rem"}}>{filterTodos.map(item => <ListItem
                     key={item.id}
                     sx={{
-                        background: "#fff",
+                        textDecoration: item.done ? " line-through" : "none",
+                        background: item.done ? "rgb(255, 238, 202)" : "#fff",
                         borderRadius: "10px",
                         p: "0.5rem",
                         display: "flex",
